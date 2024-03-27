@@ -3,6 +3,10 @@ import { fetchProperties } from "@/utils/request";
 
 const PropertyPage = async () => {
   const properties = await fetchProperties();
+
+  //sort properties by date
+  properties.sort((a, b) => new Date(b.createAt) - new Date(a.createAt));
+
   return (
     <section className="px-4 py-6">
       <div className="container-xl lg:container m-auto px-4 py-6">

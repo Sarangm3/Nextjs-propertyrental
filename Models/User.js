@@ -1,15 +1,15 @@
-const { Schema } = require("mongoose");
+const { Schema, model, models } = require("mongoose");
 
 const UserSchema = new Schema(
   {
     email: {
       type: String,
       unique: [true, "Email already exists"],
-      require: [true, "Email is required"],
+      required: [true, "Email is required"],
     },
     username: {
       type: String,
-      require: [true, "Username is required"],
+      required: [true, "Username is required"],
     },
     image: {
       type: String,
@@ -26,6 +26,8 @@ const UserSchema = new Schema(
   }
 );
 
-const User = models.user || model("User", UserSchema);
+// Use the correct case for the model name
+const User = models.User || model("User", UserSchema);
 
-export default User;
+// Export the model using CommonJS syntax
+module.exports = User;

@@ -1,4 +1,5 @@
 import { FaExclamationTriangle } from "react-icons/fa";
+import Link from "next/link";
 
 const NotFoundPage = () => {
   return (
@@ -13,12 +14,12 @@ const NotFoundPage = () => {
             <p className="text-gray-500 text-xl mb-10">
               The page you are looking for does not exist.
             </p>
-            <a
-              href="/index.html"
+            <Link
+              href="/"
               className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-4 px-6 rounded"
             >
               Go Home
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -5,6 +5,9 @@ import { fetchProperty } from "@/utils/request";
 import PropertyHeaderImage from "@/components/PropertyHeaderImage";
 import PropertyDetails from "@/components/PropertyDetails";
 import Spinner from "@/components/Spinner";
+import PropertyImages from "@/components/PropertyImages";
+import { FaArrowLeft, FaBookmark, FaShare, FaPaperPlane } from "react-icons/fa";
+import Link from "next/link";
 
 const PropertiesPage = () => {
   const { id } = useParams();
@@ -46,12 +49,12 @@ const PropertiesPage = () => {
           {/* <!-- Go Back --> */}
           <section>
             <div className="container m-auto py-6 px-6">
-              <a
-                href="/properties.html"
+              <Link
+                href="/properties"
                 className="text-blue-500 hover:text-blue-600 flex items-center"
               >
-                <i className="fas fa-arrow-left mr-2"></i> Back to Properties
-              </a>
+                <FaArrowLeft className="mr-2" /> Back to Properties
+              </Link>
             </div>
           </section>
 
@@ -63,10 +66,10 @@ const PropertiesPage = () => {
                 {/* <!-- Sidebar --> */}
                 <aside className="space-y-4">
                   <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold w-full py-2 px-4 rounded-full flex items-center justify-center">
-                    <i className="fas fa-bookmark mr-2"></i> Bookmark Property
+                    <FaBookmark className="mr-2" /> Bookmark Property
                   </button>
                   <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold w-full py-2 px-4 rounded-full flex items-center justify-center">
-                    <i className="fas fa-share mr-2"></i> Share Property
+                    <FaShare className="mr-2" /> Share Property
                   </button>
 
                   {/* <!-- Contact Form --> */}
@@ -137,8 +140,7 @@ const PropertiesPage = () => {
                           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center"
                           type="submit"
                         >
-                          <i className="fas fa-paper-plane mr-2"></i> Send
-                          Message
+                          <FaPaperPlane className="mr-2" /> Send Message
                         </button>
                       </div>
                     </form>
@@ -147,6 +149,7 @@ const PropertiesPage = () => {
               </div>
             </div>
           </section>
+          <PropertyImages images={property.images} />
         </>
       )}
     </>

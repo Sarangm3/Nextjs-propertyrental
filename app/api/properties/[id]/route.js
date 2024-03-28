@@ -1,12 +1,47 @@
 import connectDB from "@/config/database";
 import Property from "@/Models/Property";
+import { getSessionUser } from "@/utils/getSessionUser";
 
-// GET /api/properties
+// GET /api/properties/:id
 export const GET = async (request, { params }) => {
   try {
     await connectDB();
     const properties = await Property.findById(params.id);
     return new Response(JSON.stringify(properties), {
+      status: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    return new Response("Something Went Wrong", {
+      status: 500,
+    });
+  }
+};
+
+// DELETE /api/properties:/id
+export const DELETE = async (request, { params }) => {
+  try {
+    const propertyId = params.id;
+
+    const sessionUser = await getSessionUser();
+    if (!sessionUser || !sessionUser.userId) {
+      return new Response("User ID is required", { status: 401 });
+    }
+
+    const { userId } = sessionUser;
+
+    await connectDB();
+    const property = await Property.findById(propertyId);
+    if (!property) return Response("Property Not Found", { Status: 404 });
+
+    //Verify ownership
+    if (property.owner.toString() !== userId) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
+    await property.deleteOne();
+
+    return new Response("Property Deleted", {
       status: 200,
     });
   } catch (error) {

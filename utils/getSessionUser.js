@@ -1,6 +1,8 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/utils/authOptions";
 
+//using this for if want use session on serverSide
+//client side we simply use useSession
 export const getSessionUser = async () => {
   try {
     const session = await getServerSession(authOptions);

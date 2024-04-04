@@ -1,12 +1,12 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 import {
   FaBed,
   FaBath,
   FaRulerCombined,
   FaMoneyBill,
   FaMapMarker,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 
 const PropertyCard = ({ property }) => {
   const getRateDisplay = () => {
@@ -28,6 +28,7 @@ const PropertyCard = ({ property }) => {
         width={0}
         sizes="100vw"
         className="w-full h-auto rounded-t-xl"
+        priority={true}
       />
       <div className="p-4">
         <div className="text-left md:text-center lg:text-left mb-6">
@@ -44,7 +45,7 @@ const PropertyCard = ({ property }) => {
             {property.beds} <span className="md:hidden lg:inline">Beds</span>
           </p>
           <p>
-            <FaBath className="inline mr-2" /> {property.baths}{" "}
+            <FaBath className="inline mr-2" /> {property.baths}{' '}
             <span className="md:hidden lg:inline">Baths</span>
           </p>
           <p>
@@ -78,7 +79,7 @@ const PropertyCard = ({ property }) => {
           <div className="flex align-middle gap-2 mb-4 lg:mb-0">
             <FaMapMarker className="text-orange-700 mt-1" />
             <span className="text-orange-700">
-              {" "}
+              {' '}
               {property.location.city} {property.location.state}
             </span>
           </div>

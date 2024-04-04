@@ -1,14 +1,15 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { fetchProperty } from "@/utils/request";
-import PropertyHeaderImage from "@/components/PropertyHeaderImage";
-import PropertyDetails from "@/components/PropertyDetails";
-import Spinner from "@/components/Spinner";
-import PropertyImages from "@/components/PropertyImages";
-import { FaArrowLeft, FaShare, FaPaperPlane } from "react-icons/fa";
-import Link from "next/link";
-import BookmarkButton from "@/components/BookmarkButton";
+'use client';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+import { fetchProperty } from '@/utils/request';
+import PropertyHeaderImage from '@/components/PropertyHeaderImage';
+import PropertyDetails from '@/components/PropertyDetails';
+import Spinner from '@/components/Spinner';
+import PropertyImages from '@/components/PropertyImages';
+import { FaArrowLeft, FaShare, FaPaperPlane } from 'react-icons/fa';
+import Link from 'next/link';
+import BookmarkButton from '@/components/BookmarkButton';
+import ShareButton from '@/components/ShareButton';
 
 const PropertiesPage = () => {
   const { id } = useParams();
@@ -22,7 +23,7 @@ const PropertiesPage = () => {
         const property = await fetchProperty(id);
         setProperty(property);
       } catch (error) {
-        console.error("Error fetching property:", error);
+        console.error('Error fetching property:', error);
       } finally {
         setLoading(false);
       }
@@ -67,9 +68,7 @@ const PropertiesPage = () => {
                 {/* <!-- Sidebar --> */}
                 <aside className="space-y-4">
                   <BookmarkButton property={property} />
-                  <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold w-full py-2 px-4 rounded-full flex items-center justify-center">
-                    <FaShare className="mr-2" /> Share Property
-                  </button>
+                  <ShareButton property={property} />
 
                   {/* <!-- Contact Form --> */}
                   <div className="bg-white p-6 rounded-lg shadow-md">

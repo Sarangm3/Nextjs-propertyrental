@@ -38,7 +38,7 @@ const BookmarkButton = ({ property }) => {
     };
 
     fetchBookmarkData();
-  }, []);
+  }, [userId, property._id]);
 
   const handleBookmark = async () => {
     if (!userId) {

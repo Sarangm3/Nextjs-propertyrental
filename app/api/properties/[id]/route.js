@@ -1,6 +1,6 @@
-import connectDB from "@/config/database";
-import Property from "@/Models/Property";
-import { getSessionUser } from "@/utils/getSessionUser";
+import connectDB from '@/config/database';
+import Property from '@/models/Property';
+import { getSessionUser } from '@/utils/getSessionUser';
 
 // GET /api/properties/:id
 export const GET = async (request, { params }) => {
@@ -12,7 +12,7 @@ export const GET = async (request, { params }) => {
     });
   } catch (error) {
     console.log(error);
-    return new Response("Something Went Wrong", {
+    return new Response('Something Went Wrong', {
       status: 500,
     });
   }
@@ -25,28 +25,28 @@ export const DELETE = async (request, { params }) => {
 
     const sessionUser = await getSessionUser();
     if (!sessionUser || !sessionUser.userId) {
-      return new Response("User ID is required", { status: 401 });
+      return new Response('User ID is required', { status: 401 });
     }
 
     const { userId } = sessionUser;
 
     await connectDB();
     const property = await Property.findById(propertyId);
-    if (!property) return Response("Property Not Found", { Status: 404 });
+    if (!property) return Response('Property Not Found', { Status: 404 });
 
     //Verify ownership
     if (property.owner.toString() !== userId) {
-      return new Response("Unauthorized", { status: 401 });
+      return new Response('Unauthorized', { status: 401 });
     }
 
     await property.deleteOne();
 
-    return new Response("Property Deleted", {
+    return new Response('Property Deleted', {
       status: 200,
     });
   } catch (error) {
     console.log(error);
-    return new Response("Something Went Wrong", {
+    return new Response('Something Went Wrong', {
       status: 500,
     });
   }
@@ -60,7 +60,7 @@ export const PUT = async (request, { params }) => {
     const sessionUser = await getSessionUser();
 
     if (!sessionUser || !sessionUser.userId) {
-      return new Response("User ID is required", { status: 401 });
+      return new Response('User ID is required', { status: 401 });
     }
 
     const { id } = params;
@@ -69,12 +69,12 @@ export const PUT = async (request, { params }) => {
     const formData = await request.formData();
 
     // Access all values from amenities and images
-    const amenities = formData.getAll("amenities");
+    const amenities = formData.getAll('amenities');
 
     const existingProperty = await Property.findById(id);
 
     if (!existingProperty) {
-      return new Response("Property does not exist", {
+      return new Response('Property does not exist', {
         status: 404,
       });
     }
@@ -87,28 +87,28 @@ export const PUT = async (request, { params }) => {
 
     // Create propertyData object for database
     const propertyData = {
-      type: formData.get("type"),
-      name: formData.get("name"),
-      description: formData.get("description"),
+      type: formData.get('type'),
+      name: formData.get('name'),
+      description: formData.get('description'),
       location: {
-        street: formData.get("location.street"),
-        city: formData.get("location.city"),
-        state: formData.get("location.state"),
-        zipcode: formData.get("location.zipcode"),
+        street: formData.get('location.street'),
+        city: formData.get('location.city'),
+        state: formData.get('location.state'),
+        zipcode: formData.get('location.zipcode'),
       },
-      beds: formData.get("beds"),
-      baths: formData.get("baths"),
-      square_feet: formData.get("square_feet"),
+      beds: formData.get('beds'),
+      baths: formData.get('baths'),
+      square_feet: formData.get('square_feet'),
       amenities,
       rates: {
-        weekly: formData.get("rates.weekly"),
-        monthly: formData.get("rates.monthly"),
-        nightly: formData.get("rates.nightly"),
+        weekly: formData.get('rates.weekly'),
+        monthly: formData.get('rates.monthly'),
+        nightly: formData.get('rates.nightly'),
       },
       seller_info: {
-        name: formData.get("seller_info.name"),
-        email: formData.get("seller_info.email"),
-        phone: formData.get("seller_info.phone"),
+        name: formData.get('seller_info.name'),
+        email: formData.get('seller_info.email'),
+        phone: formData.get('seller_info.phone'),
       },
       owner: userId,
     };
@@ -121,6 +121,6 @@ export const PUT = async (request, { params }) => {
     });
   } catch (error) {
     console.error(error);
-    return new Response("Failed to add property", { status: 500 });
+    return new Response('Failed to add property', { status: 500 });
   }
 };

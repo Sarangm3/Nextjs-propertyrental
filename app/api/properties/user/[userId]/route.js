@@ -1,5 +1,7 @@
-import connectDB from "@/config/database";
-import Property from "@/Models/Property";
+import connectDB from '@/config/database';
+import Property from '@/models/Property';
+
+export const dynamic = 'force-dynamic';
 
 // GET /api/properties/user/:userId
 export const GET = async (request, { params }) => {
@@ -7,7 +9,7 @@ export const GET = async (request, { params }) => {
     await connectDB();
     const userId = params.userId;
     if (!userId) {
-      return new Response("User ID is required", { status: 400 });
+      return new Response('User ID is required', { status: 400 });
     }
     const properties = await Property.find({ owner: userId });
     return new Response(JSON.stringify(properties), {
@@ -15,7 +17,7 @@ export const GET = async (request, { params }) => {
     });
   } catch (error) {
     console.log(error);
-    return new Response("Something Went Wrong", {
+    return new Response('Something Went Wrong', {
       status: 500,
     });
   }

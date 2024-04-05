@@ -15,6 +15,7 @@ const PropertySavedPage = () => {
         if (res.status === 200) {
           const data = await res.json();
           setProperties(data.bookmarks);
+        } else {
           toast.error('Failed to fetch saved properties');
         }
       } catch (error) {

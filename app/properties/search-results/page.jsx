@@ -4,6 +4,8 @@ import PropertySearchForm from '@/components/PropertySearchForm';
 import { useEffect, useState } from 'react';
 import Spinner from '@/components/Spinner';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { FaArrowAltCircleLeft } from 'react-icons/fa';
 
 const PropertySearchPage = ({ Property }) => {
   const searchParams = useSearchParams();
@@ -45,15 +47,22 @@ const PropertySearchPage = ({ Property }) => {
       ) : (
         <section className="px-4 py-6">
           <div className="container-xl lg:container m-auto px-4 py-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {properties.length === 0 ? (
-                <p>No properties found</p>
-              ) : (
-                properties.map((property) => (
+            <Link
+              href="/properties"
+              className="flex items-center text-blue-500 hover:underline mb-3"
+            >
+              <FaArrowAltCircleLeft className="mr-2 mb-1" /> Back To Properties
+            </Link>
+            <h1 className="text-2xl mb-4">Search Results</h1>
+            {properties.length === 0 ? (
+              <p>No properties found</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {properties.map((property) => (
                   <PropertiesCard key={property._id} property={property} />
-                ))
-              )}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       )}

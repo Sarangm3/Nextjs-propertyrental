@@ -1,17 +1,22 @@
-import axios from "axios";
+import axios from 'axios';
 
 const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
 
 //fetch all properties
-const fetchProperties = async () => {
+async function fetchProperties({ showFeatured = false } = {}) {
   try {
-    //handle case where env var not available to deploy
+    // Handle the case where the domain is not available yet
     if (!apiDomain) {
       return [];
     }
-    const res = await fetch(`${apiDomain}/properties`, { cache: "no-store" });
+
+    const res = await fetch(
+      `${apiDomain}/properties${showFeatured ? '/featured' : ''}`,
+      { cache: 'no-store' }
+    );
+
     if (!res.ok) {
-      throw new Error("Fail to fetch data");
+      throw new Error('Fail to fetch data');
     }
 
     return res.json();
@@ -19,7 +24,7 @@ const fetchProperties = async () => {
     console.error(error);
     return [];
   }
-};
+}
 
 //fetch single property
 const fetchProperty = async (id) => {

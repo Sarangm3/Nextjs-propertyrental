@@ -1,10 +1,29 @@
+'use client';
 import { fetchProperties } from '@/utils/request';
 import FeaturedPropertyCard from '@/components/FeaturePropertyCard';
+import Spinner from '@/components/Spinner';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
-const FeatureProperties = async () => {
-  const properties = await fetchProperties({
-    showFeatured: true,
-  });
+const FeatureProperties = () => {
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchProperties({
+          showFeatured: true,
+        });
+        setProperties(data);
+      } catch (error) {
+        console.log(error);
+        toast.error('Feature fetch some problem');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     properties.length > 0 && (
@@ -13,11 +32,15 @@ const FeatureProperties = async () => {
           <h2 className="text-3xl font-bold text-blue-500 mb-6 text-center">
             Featured Properties
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {properties.map((property) => (
-              <FeaturedPropertyCard key={property._id} property={property} />
-            ))}
-          </div>
+          {loading ? (
+            <Spinner loading={loading} />
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {properties.map((property) => (
+                <FeaturedPropertyCard key={property._id} property={property} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     )

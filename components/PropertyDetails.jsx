@@ -1,4 +1,3 @@
-import { index } from "d3";
 import {
   FaBed,
   FaBath,
@@ -6,7 +5,7 @@ import {
   FaTimes,
   FaCheck,
   FaMapMarker,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 
 const PropertyDetails = ({ property }) => {
   const { street, city, state, zipcode } = property.location;
@@ -18,6 +17,7 @@ const PropertyDetails = ({ property }) => {
         <h1 className="text-3xl font-bold mb-4">{property.name}</h1>
         <div className="text-gray-500 mb-4 flex align-middle justify-center md:justify-start">
           <FaMapMarker className="text-lg text-orange-700 mr-2" />
+
           <p className="text-orange-700">{`${street} ${city}, ${state} ${zipcode}`}</p>
         </div>
 
@@ -71,7 +71,7 @@ const PropertyDetails = ({ property }) => {
           </p>
           <p>
             <FaRulerCombined className="inline-block mr-2" />
-            {property.square_feet}{" "}
+            {property.square_feet}{' '}
             <span className="hidden sm:inline"> sqft</span>
           </p>
         </div>

@@ -1,6 +1,5 @@
 import { Schema, model, models } from 'mongoose';
 
-// Define the schema
 const MessageSchema = new Schema(
   {
     sender: {
@@ -42,7 +41,6 @@ const MessageSchema = new Schema(
   }
 );
 
-// Create the model
 const Message = models.Message || model('Message', MessageSchema);
 
 export default Message;

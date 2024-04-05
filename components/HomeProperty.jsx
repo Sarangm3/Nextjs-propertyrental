@@ -4,9 +4,13 @@ import { fetchProperties } from '@/utils/request';
 
 const HomeProperty = async () => {
   const data = await fetchProperties();
-  const recentProperties = data.properties
-    .sort(() => Math.random() - Math.random())
-    .slice(0, 3);
+  let recentProperties = [];
+  if (data.properties) {
+    recentProperties = data.properties
+      .sort(() => Math.random() - Math.random())
+      .slice(0, 3);
+  }
+
   return (
     <>
       <section className="px-4 py-6">

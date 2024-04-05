@@ -26,8 +26,6 @@ const UserSchema = new Schema(
   }
 );
 
-// Use the correct case for the model name
 const User = models.User || model('User', UserSchema);
 
-// Export the model using CommonJS syntax
-module.exports = User;
+export default User;

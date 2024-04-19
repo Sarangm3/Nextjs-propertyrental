@@ -1,11 +1,9 @@
 'use client';
 import Message from '@/components/Message';
 import Spinner from '@/components/Spinner';
-import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 const Messages = () => {
-  const { data: session } = useSession();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
 

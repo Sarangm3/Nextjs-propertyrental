@@ -20,22 +20,24 @@ const PropertyCard = ({ property }) => {
     }
   };
   return (
-    <div className="rounded-xl shadow-md relative">
-      <Image
-        src={property.images[0]}
-        alt=""
-        height={0}
-        width={0}
-        sizes="100vw"
-        className="w-full h-auto rounded-t-xl"
-        priority={true}
-      />
+    <div className="rounded-xl shadow-md dark:shadow-gray-700 relative">
+      <Link href={`/properties/${property._id}`}>
+        <Image
+          src={property.images[0]}
+          alt=""
+          height={0}
+          width={0}
+          sizes="100vw"
+          className="w-full h-auto rounded-t-xl"
+          priority={true}
+        />
+      </Link>
       <div className="p-4">
         <div className="text-left md:text-center lg:text-left mb-6">
           <div className="text-gray-600">{property.type}</div>
           <h3 className="text-xl font-bold">{property.name}</h3>
         </div>
-        <h3 className="absolute top-[10px] right-[10px] bg-white px-4 py-2 rounded-lg text-blue-500 font-bold text-right md:text-center lg:text-right">
+        <h3 className="absolute top-[10px] right-[10px] bg-white px-4 py-2 rounded-lg text-gray-500 font-bold text-right md:text-center lg:text-right">
           ₹{getRateDisplay()}
         </h3>
 
@@ -85,7 +87,7 @@ const PropertyCard = ({ property }) => {
           </div>
           <Link
             href={`properties/${property._id}`}
-            className="h-[36px] bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-sm"
+            className="h-[36px] bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-center text-sm"
           >
             Details
           </Link>

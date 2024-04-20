@@ -1,20 +1,18 @@
 'use client';
 import Image from 'next/image';
 import logo from '@/assets/images/logo-white.png';
-import profileDefault from '@/assets/images/profile.png';
 import Link from 'next/link';
-import { FaGoogle } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import { signIn, useSession, getProviders } from 'next-auth/react';
 import UnreadMessageCount from '@/components/UnreadMessageCount';
+import { Button } from '@/components/ui/button';
+import { ModeToggle } from '@/components/DarkMode';
+import ProfileDropdown from '@/components/ProfileDropdown';
+import MobileMenu from '@/components/MobileMenu';
 
 const Navbar = () => {
   const { data: session } = useSession();
-  console.log(session);
-  const profileImage = session?.user?.image;
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [providers, setProviders] = useState(null);
   useEffect(() => {
     const setAuthProvider = async () => {
@@ -25,39 +23,11 @@ const Navbar = () => {
   }, []);
   const pathname = usePathname();
   return (
-    <nav className="bg-blue-700 border-b border-blue-500">
+    <nav className="shadow-md bg-gray-900 ">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className="relative flex h-14 items-center justify-between">
-          <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
-            {/* <!-- Mobile menu button--> */}
-            <button
-              type="button"
-              id="mobile-dropdown-button"
-              className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-              aria-controls="mobile-menu"
-              aria-expanded="false"
-              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-            >
-              <span className="absolute -inset-0.5"></span>
-              <span className="sr-only">Open main menu</span>
-              <svg
-                className="block h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
+        <div className="relative flex h-14 items-center">
+          <MobileMenu session={session} pathname={pathname} />
+          <div className="flex flex-1 items-center md:items-stretch">
             {/* <!-- Logo --> */}
             <Link className="flex flex-shrink-0 items-center" href="/">
               <Image
@@ -67,26 +37,28 @@ const Navbar = () => {
                 alt="PropertyPulse"
               />
 
-              <span className="hidden md:block text-white text-2xl font-bold ml-2">
-                PropertyPulse
+              <span className="hidden md:block text-white text-2xl font-semibold ml-2">
+                PropertyRento
               </span>
             </Link>
             {/* <!-- Desktop Menu Hidden below md screens --> */}
             <div className="hidden md:ml-6 md:block">
-              <div className="flex space-x-2">
+              <div className="flex space-x-2 text-gray-400">
                 <Link
                   href="/"
-                  className={`${
-                    pathname === '/' ? 'bg-black' : ''
-                  } text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+                  className={` ${
+                    pathname === '/' ? 'text-gray-200 font-semibold' : ''
+                  }   hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                 >
                   Home
                 </Link>
                 <Link
                   href="/properties"
                   className={`${
-                    pathname === '/properties' ? 'bg-black' : ''
-                  } text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+                    pathname === '/properties'
+                      ? 'text-gray-200 font-semibold'
+                      : ''
+                  }  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                 >
                   Properties
                 </Link>
@@ -94,8 +66,10 @@ const Navbar = () => {
                   <Link
                     href="/properties/add"
                     className={`${
-                      pathname === '/properties/add' ? 'bg-black' : ''
-                    } text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+                      pathname === '/properties/add'
+                        ? 'text-gray-200 font-semibold'
+                        : ''
+                    }  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                   >
                     Add Property
                   </Link>
@@ -106,16 +80,17 @@ const Navbar = () => {
 
           {/* <!-- Right Side Menu (Logged Out) --> */}
           {!session && (
-            <div className="hidden md:block md:ml-6">
-              <div className="flex items-center">
+            <div className="md:ml-6">
+              <div className="flex gap-4 items-center">
+                <ModeToggle />
                 {providers && (
-                  <button
+                  <Button
                     onClick={() => signIn()}
-                    className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                    className="w-full md:w-auto"
+                    variant={'outline'}
                   >
-                    <FaGoogle className=" text-white mr-2" />
-                    <span>SignIn</span>
-                  </button>
+                    Login or Register
+                  </Button>
                 )}
               </div>
             </div>
@@ -123,11 +98,12 @@ const Navbar = () => {
 
           {/* <!-- Right Side Menu (Logged In) --> */}
           {session && (
-            <div className="absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0">
+            <div className="absolute inset-y-0 right-0 flex gap-4 items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0">
+              <ModeToggle />
               <Link href="/messages" className="relative group">
                 <button
                   type="button"
-                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="relative rounded-full bg-gray-400 p-1.5 text-black hover:text-gray-700 focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-1 focus:ring-offset-gray-800"
                 >
                   <span className="absolute -inset-1.5"></span>
                   <span className="sr-only">View notifications</span>
@@ -148,125 +124,14 @@ const Navbar = () => {
                 </button>
                 <UnreadMessageCount session={session} />
               </Link>
-              {/* <!-- Profile dropdown button --> */}
-              <div className="relative ml-3">
-                <div>
-                  <button
-                    type="button"
-                    className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                    id="user-menu-button"
-                    aria-expanded="false"
-                    aria-haspopup="true"
-                    onClick={() => setIsProfileMenuOpen((prev) => !prev)}
-                  >
-                    <span className="absolute -inset-1.5"></span>
-                    <span className="sr-only">Open user menu</span>
-                    <Image
-                      className="h-8 w-8 rounded-full"
-                      src={profileImage || profileDefault}
-                      alt=""
-                      width={40}
-                      height={40}
-                      priority={true}
-                    />
-                  </button>
-                </div>
-
-                {/* <!-- Profile dropdown --> */}
-                {isProfileMenuOpen && (
-                  <div
-                    id="user-menu"
-                    className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                    role="menu"
-                    aria-orientation="vertical"
-                    aria-labelledby="user-menu-button"
-                    tabIndex="-1"
-                  >
-                    <Link
-                      href="/profile"
-                      className="block px-4 py-2 text-sm text-gray-700"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="user-menu-item-0"
-                      onClick={() => setIsProfileMenuOpen(false)}
-                    >
-                      Your Profile
-                    </Link>
-                    <Link
-                      href="properties/saved"
-                      className="block px-4 py-2 text-sm text-gray-700"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="user-menu-item-2"
-                      onClick={() => setIsProfileMenuOpen(false)}
-                    >
-                      Saved Properties
-                    </Link>
-                    <button
-                      onClick={() => {
-                        setIsProfileMenuOpen(false);
-                        signOut();
-                      }}
-                      className="block px-4 py-2 text-sm text-gray-700"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="user-menu-item-2"
-                    >
-                      Sign Out
-                    </button>
-                  </div>
-                )}
+              {/* <!-- Profile dropdown --> */}
+              <div className="relative">
+                <ProfileDropdown />
               </div>
             </div>
           )}
         </div>
       </div>
-
-      {/* <!-- Mobile menu, show/hide based on menu state. --> */}
-      {isMobileMenuOpen && (
-        <div id="mobile-menu">
-          <div className="space-y-1 px-2 pb-3 pt-2">
-            <Link
-              href="/"
-              className={`${
-                pathname == '/' ? 'bg-black' : ''
-              }text-white block rounded-md px-3 py-2 text-base font-medium`}
-            >
-              Home
-            </Link>
-            <Link
-              href="/properties"
-              className={`${
-                pathname == '/properties' ? 'bg-black' : ''
-              }text-white block rounded-md px-3 py-2 text-base font-medium`}
-            >
-              Properties
-            </Link>
-            {session && (
-              <Link
-                href="/properties/add"
-                className={`${
-                  pathname == '/properties/add' ? 'bg-black' : ''
-                }text-white block rounded-md px-3 py-2 text-base font-medium`}
-              >
-                Add Property
-              </Link>
-            )}
-            {!session &&
-              providers &&
-              Object.values(providers).map((provider, index) => (
-                <button
-                  onClick={() => signIn(provider.id)}
-                  key={index}
-                  className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 my-4"
-                >
-                  <FaGoogle className="text-white mr-2" />
-                  <span>Login or Register</span>
-                </button>
-              ))}
-          </div>
-        </div>
-      )}
     </nav>
   );
 };

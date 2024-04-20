@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import Spinner from '@/components/Spinner';
 import PropertiesCard from '@/components/PropertyCard';
-import { toast } from 'react-toastify';
 
 const PropertySavedPage = () => {
   const [properties, setProperties] = useState();
@@ -15,12 +14,9 @@ const PropertySavedPage = () => {
         if (res.status === 200) {
           const data = await res.json();
           setProperties(data.bookmarks);
-        } else {
-          toast.error('Failed to fetch saved properties');
         }
       } catch (error) {
         console.log(error);
-        toast.error('Failed to fetch saved properties');
       } finally {
         setLoading(false);
       }

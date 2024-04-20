@@ -3,7 +3,6 @@ import { fetchProperties } from '@/utils/request';
 import FeaturedPropertyCard from '@/components/FeaturePropertyCard';
 import Spinner from '@/components/Spinner';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 
 const FeatureProperties = () => {
   const [properties, setProperties] = useState([]);
@@ -17,7 +16,6 @@ const FeatureProperties = () => {
         setProperties(data);
       } catch (error) {
         console.log(error);
-        toast.error('Feature fetch some problem');
       } finally {
         setLoading(false);
       }
@@ -27,9 +25,9 @@ const FeatureProperties = () => {
 
   return (
     properties.length > 0 && (
-      <section className="bg-blue-50 px-4 pt-6 pb-10">
+      <section className="bg-slate-100 dark:bg-gray-800 px-4 pt-6 pb-10">
         <div className="container-xl lg:container m-auto">
-          <h2 className="text-3xl font-bold text-blue-500 mb-6 text-center">
+          <h2 className="text-3xl font-bold text-gray-500 dark:text-white mb-6 text-center">
             Featured Properties
           </h2>
           {loading ? (

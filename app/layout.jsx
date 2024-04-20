@@ -6,6 +6,8 @@ import '@/assets/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { GlobalProvider } from '@/context/GlobalContext';
 import 'photoswipe/dist/photoswipe.css';
+import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata = {
   title: 'PropertyPulse | Find The Perfect Rental',
@@ -15,21 +17,29 @@ export const metadata = {
 
 const MainLayout = ({ children }) => {
   return (
-    <GlobalProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <GlobalProvider>
         <html lang="en">
           <head>
             <link rel="shortcut icon" href="/favicon.ico" />
           </head>
           <body>
-            <Navbar />
-            <div>{children}</div>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Navbar />
+              <div>{children}</div>
+              <Toaster />
+              <ToastContainer />
+            </ThemeProvider>
             <Footer />
-            <ToastContainer />
           </body>
         </html>
-      </AuthProvider>
-    </GlobalProvider>
+      </GlobalProvider>
+    </AuthProvider>
   );
 };
 

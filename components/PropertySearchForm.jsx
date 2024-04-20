@@ -31,7 +31,7 @@ const PropertySearch = () => {
           type="text"
           id="location"
           placeholder="Enter Keywords or Location"
-          className="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500"
+          className="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring focus:ring-gray-500"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />
@@ -42,11 +42,13 @@ const PropertySearch = () => {
         </label>
         <select
           id="property-type"
-          className="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500"
+          className="w-full px-4 py-3 rounded-lg  focus:outline-none focus:ring focus:ring-gray-500"
           value={propertyType}
           onChange={(e) => setPropertyType(e.target.value)}
         >
-          <option value="All">All</option>
+          <option value="All" className="hover:bg-gray-900">
+            All
+          </option>
           <option value="Apartment">Apartment</option>
           <option value="Studio">Studio</option>
           <option value="Condo">Condo</option>
@@ -59,7 +61,7 @@ const PropertySearch = () => {
       </div>
       <button
         type="submit"
-        className="md:ml-4 mt-4 md:mt-0 w-full md:w-auto px-6 py-3 rounded-lg bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-500"
+        className="md:ml-4 mt-4 md:mt-0 w-full md:w-auto px-6 py-3 rounded-lg bg-gray-500 text-white hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-500"
       >
         Search
       </button>

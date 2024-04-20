@@ -1,13 +1,15 @@
-"use client";
-import Image from "next/image";
-import Link from "next/link";
-import { useSession } from "next-auth/react";
-import profileDefault from "@/assets/images/profile.png";
-import { useEffect, useState } from "react";
-import Spinner from "@/components/Spinner";
-import { toast } from "react-toastify";
+'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import profileDefault from '@/assets/images/profile.png';
+import { useEffect, useState } from 'react';
+import Spinner from '@/components/Spinner';
+import { useToast } from '@/components/ui/use-toast';
+import DeleteButton from '@/components/DeleteButton';
 
 const ProfilePage = () => {
+  const { toast } = useToast();
   const { data: session } = useSession();
   const profileImage = session?.user?.image;
   const profileName = session?.user?.name;
@@ -43,13 +45,9 @@ const ProfilePage = () => {
   }, [session]);
 
   const handleDeleteProperty = async (propertyId) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this property?"
-    );
-    if (!confirmed) return;
     try {
       const res = await fetch(`/api/properties/${propertyId}`, {
-        method: "DELETE",
+        method: 'DELETE',
       });
       if (res.status === 200) {
         //Remove the property from state
@@ -57,23 +55,32 @@ const ProfilePage = () => {
           (property) => property._id !== propertyId
         );
         setProperties(updatedProperties);
-        toast.success("Property Deleted");
+        toast({
+          title: 'Success',
+          description: 'Property Deleted',
+        });
       } else {
-        toast.error("Fail to delete property");
+        toast({
+          title: 'error',
+          description: 'Fail to delete property',
+        });
       }
     } catch (error) {
-      toast.error("Fail to delete property");
+      toast({
+        title: 'error',
+        description: 'Fail to delete property',
+      });
       console.error(error);
     }
   };
 
   return (
-    <section className="bg-blue-50">
+    <section className="bg-gray-100 dark:bg-gray-900">
       <div className="container m-auto py-24">
-        <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
+        <div className="bg-white dark:bg-gray-950 px-6 py-8 mb-4 shadow-md dark:shadow-gray-700 rounded-md border m-4 md:m-0">
           <h1 className="text-3xl font-bold mb-4">Your Profile</h1>
           <div className="flex flex-col md:flex-row">
-            <div className="md:w-1/4 mx-20 mt-10">
+            <div className="md:w-1/4 md:mx-20 mt-10">
               <div className="mb-4">
                 <Image
                   className="h-32 w-32 md:h-48 md:w-48 rounded-full mx-auto md:mx-0"
@@ -92,8 +99,8 @@ const ProfilePage = () => {
               </h2>
             </div>
 
-            <div className="md:w-3/4 md:pl-4">
-              <h2 className="text-xl font-semibold mb-4">Your Listings</h2>
+            <div className="mt-10 md:mt-0 md:w-3/4 md:pl-4">
+              <h2 className="text-2xl font-semibold mb-4">Your Listings</h2>
               {!loading && properties.length === 0 && (
                 <p>You have no property Listings</p>
               )}
@@ -114,25 +121,22 @@ const ProfilePage = () => {
                     </Link>
                     <div className="mt-2">
                       <p className="text-lg font-semibold">{property.name}</p>
-                      <p className="text-gray-600">
-                        Address: {property.location.street}{" "}
+                      <p className="text-gray-600 dark:text-gray-300">
+                        Address: {property.location.street}{' '}
                         {property.location.city} {property.location.state}
                       </p>
                     </div>
                     <div className="mt-2">
                       <Link
                         href={`/properties/${property._id}/edit`}
-                        className="bg-blue-500 text-white px-3 py-3 rounded-md mr-2 hover:bg-blue-600"
+                        className="mt-4 bg-gray-500 text-white py-1 px-3 mr-3 rounded-md inline-block hover:bg-gray-600"
                       >
                         Edit
                       </Link>
-                      <button
-                        onClick={() => handleDeleteProperty(property._id)}
-                        className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
-                        type="button"
-                      >
-                        Delete
-                      </button>
+                      <DeleteButton
+                        message={'Property'}
+                        onClickHandle={() => handleDeleteProperty(property._id)}
+                      />
                     </div>
                   </div>
                 ))

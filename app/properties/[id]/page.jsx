@@ -54,7 +54,7 @@ const PropertiesPage = () => {
             <div className="container m-auto py-6 px-6">
               <Link
                 href="/properties"
-                className="text-blue-500 hover:text-blue-600 flex items-center"
+                className="text-gray-500 hover:text-gray-600 flex items-center"
               >
                 <FaArrowLeft className="mr-2" /> Back to Properties
               </Link>
@@ -62,12 +62,14 @@ const PropertiesPage = () => {
           </section>
 
           {/* <!-- Property Info --> */}
-          <section className="bg-blue-50">
-            <div className="container m-auto py-10 px-6">
-              <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
-                <PropertyDetails property={property} />
+          <section className="bg-gray-100 dark:bg-gray-950">
+            <div className="container mx-auto py-10 px-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="col-span-1 md:col-span-2">
+                  <PropertyDetails property={property} />
+                </div>
                 {/* <!-- Sidebar --> */}
-                <aside className="space-y-4">
+                <aside className="col-span-1 md:col-span-1 space-y-4">
                   <BookmarkButton property={property} />
                   <ShareButton property={property} />
                   <PropertyContactForm property={property} />
@@ -75,6 +77,7 @@ const PropertiesPage = () => {
               </div>
             </div>
           </section>
+
           <PropertyImages images={property.images} />
         </>
       )}

@@ -1,36 +1,36 @@
-"use client";
-import { useEffect, useState } from "react";
-import { fetchProperty } from "@/utils/request";
-import { useParams, useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+'use client';
+import { useEffect, useState } from 'react';
+import { fetchProperty } from '@/utils/request';
+import { useParams, useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 const PropertyEditForm = () => {
   const { id } = useParams();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [fields, setFields] = useState({
-    type: "",
-    name: "",
-    description: "",
+    type: '',
+    name: '',
+    description: '',
     location: {
-      street: "",
-      city: "",
-      state: "",
-      zipcode: "",
+      street: '',
+      city: '',
+      state: '',
+      zipcode: '',
     },
-    beds: "",
-    baths: "",
-    square_feet: "",
+    beds: '',
+    baths: '',
+    square_feet: '',
     amenities: [],
     rates: {
-      weekly: "",
-      monthly: "",
-      nightly: "",
+      weekly: '',
+      monthly: '',
+      nightly: '',
     },
     seller_info: {
-      name: "",
-      email: "",
-      phone: "",
+      name: '',
+      email: '',
+      phone: '',
     },
   });
   const [loading, setLoading] = useState(true);
@@ -48,7 +48,7 @@ const PropertyEditForm = () => {
           const defaultRates = { ...propertyData.rates };
           for (const rate in defaultRates) {
             if (defaultRates[rate] === null) {
-              defaultRates[rate] = "";
+              defaultRates[rate] = '';
             }
           }
           propertyData.rates = defaultRates;
@@ -69,8 +69,8 @@ const PropertyEditForm = () => {
     const { name, value } = e.target;
 
     // Check if nested property
-    if (name.includes(".")) {
-      const [outerKey, innerKey] = name.split(".");
+    if (name.includes('.')) {
+      const [outerKey, innerKey] = name.split('.');
 
       setFields((prevFields) => ({
         ...prevFields,
@@ -118,19 +118,19 @@ const PropertyEditForm = () => {
     try {
       const formData = new FormData(e.target);
       const res = await fetch(`/api/properties/${id}`, {
-        method: "PUT",
+        method: 'PUT',
         body: formData,
       });
       if (res.status === 200) {
         router.push(`/properties/${id}`);
       } else if (res.status === 401 || res.status === 403) {
-        toast.error("Permission denied");
+        toast.error('Permission denied');
       } else {
-        toast.error("Something went wrong");
+        toast.error('Something went wrong');
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong");
+      toast.error('Something went wrong');
     }
   };
 
@@ -139,10 +139,13 @@ const PropertyEditForm = () => {
     !loading && (
       <form onSubmit={handleSubmit}>
         <h2 className="text-3xl text-center font-semibold mb-6">
-          Add Property
+          Edit Property
         </h2>
         <div className="mb-4">
-          <label htmlFor="type" className="block text-gray-700 font-bold mb-2">
+          <label
+            htmlFor="type"
+            className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
+          >
             Property Type
           </label>
           <select
@@ -163,7 +166,7 @@ const PropertyEditForm = () => {
           </select>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">
+          <label className="block text-gray-700 dark:text-gray-300 font-bold mb-2">
             Listing Name
           </label>
           <input
@@ -180,7 +183,7 @@ const PropertyEditForm = () => {
         <div className="mb-4">
           <label
             htmlFor="description"
-            className="block text-gray-700 font-bold mb-2"
+            className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
           >
             Description
           </label>
@@ -195,8 +198,10 @@ const PropertyEditForm = () => {
           ></textarea>
         </div>
 
-        <div className="mb-4 bg-blue-50 p-4">
-          <label className="block text-gray-700 font-bold mb-2">Location</label>
+        <div className="mb-4 bg-gray-100 dark:bg-gray-950 p-4">
+          <label className="block text-gray-700 dark:text-gray-300 font-bold mb-2">
+            Location
+          </label>
           <input
             type="text"
             id="street"
@@ -241,7 +246,7 @@ const PropertyEditForm = () => {
           <div className="w-full sm:w-1/3 pr-2">
             <label
               htmlFor="beds"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
             >
               Beds
             </label>
@@ -258,7 +263,7 @@ const PropertyEditForm = () => {
           <div className="w-full sm:w-1/3 px-2">
             <label
               htmlFor="baths"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
             >
               Baths
             </label>
@@ -275,7 +280,7 @@ const PropertyEditForm = () => {
           <div className="w-full sm:w-1/3 pl-2">
             <label
               htmlFor="square_feet"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
             >
               Square Feet
             </label>
@@ -292,7 +297,7 @@ const PropertyEditForm = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">
+          <label className="block text-gray-700 dark:text-gray-300 font-bold mb-2">
             Amenities
           </label>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -303,7 +308,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Wifi"
                 className="mr-2"
-                checked={fields.amenities.includes("Wifi")}
+                checked={fields.amenities.includes('Wifi')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_wifi">Wifi</label>
@@ -315,7 +320,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Full Kitchen"
                 className="mr-2"
-                checked={fields.amenities.includes("Full Kitchen")}
+                checked={fields.amenities.includes('Full Kitchen')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_kitchen">Full kitchen</label>
@@ -327,7 +332,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Washer & Dryer"
                 className="mr-2"
-                checked={fields.amenities.includes("Washer & Dryer")}
+                checked={fields.amenities.includes('Washer & Dryer')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_washer_dryer">Washer & Dryer</label>
@@ -339,7 +344,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Free Parking"
                 className="mr-2"
-                checked={fields.amenities.includes("Free Parking")}
+                checked={fields.amenities.includes('Free Parking')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_free_parking">Free Parking</label>
@@ -351,7 +356,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Swimming Pool"
                 className="mr-2"
-                checked={fields.amenities.includes("Swimming Pool")}
+                checked={fields.amenities.includes('Swimming Pool')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_pool">Swimming Pool</label>
@@ -363,7 +368,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Hot Tub"
                 className="mr-2"
-                checked={fields.amenities.includes("Hot Tub")}
+                checked={fields.amenities.includes('Hot Tub')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_hot_tub">Hot Tub</label>
@@ -375,7 +380,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="24/7 Security"
                 className="mr-2"
-                checked={fields.amenities.includes("24/7 Security")}
+                checked={fields.amenities.includes('24/7 Security')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_24_7_security">24/7 Security</label>
@@ -387,7 +392,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Wheelchair Accessible"
                 className="mr-2"
-                checked={fields.amenities.includes("Wheelchair Accessible")}
+                checked={fields.amenities.includes('Wheelchair Accessible')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_wheelchair_accessible">
@@ -401,7 +406,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Elevator Access"
                 className="mr-2"
-                checked={fields.amenities.includes("Elevator Access")}
+                checked={fields.amenities.includes('Elevator Access')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_elevator_access">Elevator Access</label>
@@ -413,7 +418,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Dishwasher"
                 className="mr-2"
-                checked={fields.amenities.includes("Dishwasher")}
+                checked={fields.amenities.includes('Dishwasher')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_dishwasher">Dishwasher</label>
@@ -425,7 +430,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Gym/Fitness Center"
                 className="mr-2"
-                checked={fields.amenities.includes("Gym/Fitness Center")}
+                checked={fields.amenities.includes('Gym/Fitness Center')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_gym_fitness_center">
@@ -439,7 +444,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Air Conditioning"
                 className="mr-2"
-                checked={fields.amenities.includes("Air Conditioning")}
+                checked={fields.amenities.includes('Air Conditioning')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_air_conditioning">Air Conditioning</label>
@@ -451,7 +456,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Balcony/Patio"
                 className="mr-2"
-                checked={fields.amenities.includes("Balcony/Patio")}
+                checked={fields.amenities.includes('Balcony/Patio')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_balcony_patio">Balcony/Patio</label>
@@ -463,7 +468,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Smart TV"
                 className="mr-2"
-                checked={fields.amenities.includes("Smart TV")}
+                checked={fields.amenities.includes('Smart TV')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_smart_tv">Smart TV</label>
@@ -475,7 +480,7 @@ const PropertyEditForm = () => {
                 name="amenities"
                 value="Coffee Maker"
                 className="mr-2"
-                checked={fields.amenities.includes("Coffee Maker")}
+                checked={fields.amenities.includes('Coffee Maker')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_coffee_maker">Coffee Maker</label>
@@ -483,8 +488,8 @@ const PropertyEditForm = () => {
           </div>
         </div>
 
-        <div className="mb-4 bg-blue-50 p-4">
-          <label className="block text-gray-700 font-bold mb-2">
+        <div className="mb-4 bg-gray-100 dark:bg-gray-950 p-4">
+          <label className="block text-gray-700 dark:text-gray-300 font-bold mb-2">
             Rates (Leave blank if not applicable)
           </label>
           <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
@@ -533,7 +538,7 @@ const PropertyEditForm = () => {
         <div className="mb-4">
           <label
             htmlFor="seller_name"
-            className="block text-gray-700 font-bold mb-2"
+            className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
           >
             Seller Name
           </label>
@@ -550,7 +555,7 @@ const PropertyEditForm = () => {
         <div className="mb-4">
           <label
             htmlFor="seller_email"
-            className="block text-gray-700 font-bold mb-2"
+            className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
           >
             Seller Email
           </label>
@@ -568,7 +573,7 @@ const PropertyEditForm = () => {
         <div className="mb-4">
           <label
             htmlFor="seller_phone"
-            className="block text-gray-700 font-bold mb-2"
+            className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
           >
             Seller Phone
           </label>
@@ -584,7 +589,7 @@ const PropertyEditForm = () => {
         </div>
         <div>
           <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
+            className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Update Property

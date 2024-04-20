@@ -4,7 +4,6 @@ import PropertyCard from '@/components/PropertyCard';
 import Spinner from '@/components/Spinner';
 import { fetchProperties } from '@/utils/request';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 
 const HomeProperty = () => {
   const [properties, setProperties] = useState([]);
@@ -21,7 +20,6 @@ const HomeProperty = () => {
         setProperties(recentProperties);
       } catch (error) {
         console.log(error);
-        toast.error('Fetching has some problem');
       } finally {
         setLoading(false);
       }
@@ -33,7 +31,7 @@ const HomeProperty = () => {
     <>
       <section className="px-4 py-6">
         <div className="container-xl lg:container m-auto">
-          <h2 className="text-3xl font-bold text-blue-500 mb-6 text-center">
+          <h2 className="text-3xl font-bold text-gray-500 mb-6 text-center">
             Recent Properties
           </h2>
           {loading ? (

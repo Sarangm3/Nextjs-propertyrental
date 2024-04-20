@@ -1,32 +1,32 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const PropertyAddForm = () => {
   const [mounted, setMounted] = useState(false);
   const [fields, setFields] = useState({
-    type: "",
-    name: "",
-    description: "",
+    type: '',
+    name: '',
+    description: '',
     location: {
-      street: "",
-      city: "",
-      state: "",
-      zipcode: "",
+      street: '',
+      city: '',
+      state: '',
+      zipcode: '',
     },
-    beds: "",
-    baths: "",
-    square_feet: "",
+    beds: '',
+    baths: '',
+    square_feet: '',
     amenities: [],
     rates: {
-      weekly: "",
-      monthly: "",
-      nightly: "",
+      weekly: '',
+      monthly: '',
+      nightly: '',
     },
     seller_info: {
-      name: "",
-      email: "",
-      phone: "",
+      name: '',
+      email: '',
+      phone: '',
     },
     images: [],
   });
@@ -39,8 +39,8 @@ const PropertyAddForm = () => {
     const { name, value } = e.target;
 
     // Check if nested property
-    if (name.includes(".")) {
-      const [outerKey, innerKey] = name.split(".");
+    if (name.includes('.')) {
+      const [outerKey, innerKey] = name.split('.');
 
       setFields((prevFields) => ({
         ...prevFields,
@@ -165,7 +165,7 @@ const PropertyAddForm = () => {
           ></textarea>
         </div>
 
-        <div className="mb-4 bg-blue-50 p-4">
+        <div className="mb-4 bg-gray-100 dark:bg-black p-4">
           <label className="block text-gray-700 font-bold mb-2">Location</label>
           <input
             type="text"
@@ -273,7 +273,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Wifi"
                 className="mr-2"
-                checked={fields.amenities.includes("Wifi")}
+                checked={fields.amenities.includes('Wifi')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_wifi">Wifi</label>
@@ -285,7 +285,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Full Kitchen"
                 className="mr-2"
-                checked={fields.amenities.includes("Full Kitchen")}
+                checked={fields.amenities.includes('Full Kitchen')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_kitchen">Full kitchen</label>
@@ -297,7 +297,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Washer & Dryer"
                 className="mr-2"
-                checked={fields.amenities.includes("Washer & Dryer")}
+                checked={fields.amenities.includes('Washer & Dryer')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_washer_dryer">Washer & Dryer</label>
@@ -309,7 +309,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Free Parking"
                 className="mr-2"
-                checked={fields.amenities.includes("Free Parking")}
+                checked={fields.amenities.includes('Free Parking')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_free_parking">Free Parking</label>
@@ -321,7 +321,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Swimming Pool"
                 className="mr-2"
-                checked={fields.amenities.includes("Swimming Pool")}
+                checked={fields.amenities.includes('Swimming Pool')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_pool">Swimming Pool</label>
@@ -333,7 +333,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Hot Tub"
                 className="mr-2"
-                checked={fields.amenities.includes("Hot Tub")}
+                checked={fields.amenities.includes('Hot Tub')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_hot_tub">Hot Tub</label>
@@ -345,7 +345,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="24/7 Security"
                 className="mr-2"
-                checked={fields.amenities.includes("24/7 Security")}
+                checked={fields.amenities.includes('24/7 Security')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_24_7_security">24/7 Security</label>
@@ -357,7 +357,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Wheelchair Accessible"
                 className="mr-2"
-                checked={fields.amenities.includes("Wheelchair Accessible")}
+                checked={fields.amenities.includes('Wheelchair Accessible')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_wheelchair_accessible">
@@ -371,7 +371,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Elevator Access"
                 className="mr-2"
-                checked={fields.amenities.includes("Elevator Access")}
+                checked={fields.amenities.includes('Elevator Access')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_elevator_access">Elevator Access</label>
@@ -383,7 +383,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Dishwasher"
                 className="mr-2"
-                checked={fields.amenities.includes("Dishwasher")}
+                checked={fields.amenities.includes('Dishwasher')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_dishwasher">Dishwasher</label>
@@ -395,7 +395,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Gym/Fitness Center"
                 className="mr-2"
-                checked={fields.amenities.includes("Gym/Fitness Center")}
+                checked={fields.amenities.includes('Gym/Fitness Center')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_gym_fitness_center">
@@ -409,7 +409,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Air Conditioning"
                 className="mr-2"
-                checked={fields.amenities.includes("Air Conditioning")}
+                checked={fields.amenities.includes('Air Conditioning')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_air_conditioning">Air Conditioning</label>
@@ -421,7 +421,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Balcony/Patio"
                 className="mr-2"
-                checked={fields.amenities.includes("Balcony/Patio")}
+                checked={fields.amenities.includes('Balcony/Patio')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_balcony_patio">Balcony/Patio</label>
@@ -433,7 +433,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Smart TV"
                 className="mr-2"
-                checked={fields.amenities.includes("Smart TV")}
+                checked={fields.amenities.includes('Smart TV')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_smart_tv">Smart TV</label>
@@ -445,7 +445,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Coffee Maker"
                 className="mr-2"
-                checked={fields.amenities.includes("Coffee Maker")}
+                checked={fields.amenities.includes('Coffee Maker')}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_coffee_maker">Coffee Maker</label>
@@ -453,7 +453,7 @@ const PropertyAddForm = () => {
           </div>
         </div>
 
-        <div className="mb-4 bg-blue-50 p-4">
+        <div className="mb-4 bg-gray-100 dark:bg-black p-4">
           <label className="block text-gray-700 font-bold mb-2">
             Rates (Leave blank if not applicable)
           </label>
@@ -574,7 +574,7 @@ const PropertyAddForm = () => {
 
         <div>
           <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
+            className="bg-gray-800 dark:bg-slate-200 hover:bg-gray-900 dark:hover:bg-slate-100 text-white dark:text-black font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Add Property

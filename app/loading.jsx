@@ -1,13 +1,13 @@
-"use client";
-import ClipLoader from "react-spinners/ClipLoader";
+'use client';
+import ClipLoader from 'react-spinners/ClipLoader';
 const LoadingPage = ({ loading }) => {
   const override = {
-    display: "block",
-    margin: "100px auto",
+    display: 'block',
+    margin: '100px auto',
   };
   return (
     <ClipLoader
-      color="#3b82f6"
+      color="#808080"
       loading={loading}
       cssOverride={override}
       size={150}

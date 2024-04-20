@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { toast } from 'react-toastify';
 import { useGlobalContext } from '@/context/GlobalContext';
+import { useToast } from '@/components/ui/use-toast';
+import DeleteButton from '@/components/DeleteButton';
 
 const Message = ({ message }) => {
+  const { toast } = useToast();
   const [isRead, setIsRead] = useState(message.read);
   const [isDeleted, setIsDeleted] = useState(false);
   const { setUnreadCount } = useGlobalContext();
@@ -19,14 +21,23 @@ const Message = ({ message }) => {
         setIsRead(read);
         setUnreadCount((prevCount) => (read ? prevCount - 1 : prevCount + 1));
         if (read) {
-          toast.success('Marked as read');
+          toast({
+            title: 'Success',
+            description: 'Marked as read',
+          });
         } else {
-          toast.success('Marked as new');
+          toast({
+            title: 'Success',
+            description: 'Marked as new',
+          });
         }
       }
     } catch (error) {
       console.log(error);
-      toast.error('Something went wrong');
+      toast({
+        title: 'Error',
+        description: 'Something went wrong',
+      });
     }
   };
   const handleDeleteClick = async () => {
@@ -38,11 +49,17 @@ const Message = ({ message }) => {
       if (res.status === 200) {
         setIsDeleted(true);
         setUnreadCount((prevCount) => prevCount - 1);
-        toast.success('Message Deleted');
+        toast({
+          title: 'Success',
+          description: 'Message Deleted',
+        });
       }
     } catch (error) {
       console.log(error);
-      toast.error('Message was not deleted');
+      toast({
+        title: 'error',
+        description: 'Message was not deleted',
+      });
     }
   };
 
@@ -52,7 +69,7 @@ const Message = ({ message }) => {
 
   return (
     <div className="space-y-4">
-      <div className="relative bg-white p-4 rounded-md shadow-md border border-gray-200">
+      <div className="relative bg-white dark:bg-gray-950 p-4 rounded-md shadow-md border dark:border-gray-800 border-gray-200">
         {!isRead && (
           <div className="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-md">
             New
@@ -67,7 +84,7 @@ const Message = ({ message }) => {
         <ul className="mt-4">
           <li>
             <strong>Name:</strong>
-            {message.sender.username}
+            {message?.sender?.username}
           </li>
 
           <li>
@@ -89,18 +106,13 @@ const Message = ({ message }) => {
         </ul>
         <button
           className={`mt-4 mr-3  ${
-            isRead ? 'bg-gray-300' : 'bg-blue-500 text-white'
+            isRead ? 'bg-gray-500' : 'bg-gray-800 text-white'
           } py-1 px-3 rounded-md`}
           onClick={handleReadClick}
         >
           {isRead ? 'Mark As New' : 'Mark As Read'}
         </button>
-        <button
-          className="mt-4 bg-red-500 text-white py-1 px-3 rounded-md"
-          onClick={handleDeleteClick}
-        >
-          Delete
-        </button>
+        <DeleteButton message={'Message'} onClickHandle={handleDeleteClick} />
       </div>
     </div>
   );

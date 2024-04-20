@@ -4,7 +4,7 @@ import { Gallery, Item } from 'react-photoswipe-gallery';
 const PropertyImages = ({ images }) => {
   return (
     <Gallery>
-      <section className="bg-blue-50 p-4">
+      <section className="bg-gray-100 dark:bg-gray-900 p-4">
         <div className="container mx-auto">
           {images.length === 1 ? (
             <Item

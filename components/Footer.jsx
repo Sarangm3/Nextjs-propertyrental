@@ -1,15 +1,21 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import logo from '@/assets/images/logo.png';
+import logo from '@/assets/images/logo-white.png';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="bg-gray-200 py-4 mt-24">
+    //desktop
+    <footer className="hidden md:block bg-gray-900 py-4">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
         <div className="mb-4 md:mb-0">
           <Link href="/">
-            <Image src={logo} alt="Logo" className="h-8 w-auto" />
+            <Image
+              src={logo}
+              priority={true}
+              alt="Logo"
+              className="h-8 w-auto"
+            />
           </Link>
         </div>
 

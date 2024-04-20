@@ -2,9 +2,10 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { FaBookmark } from 'react-icons/fa';
-import { toast } from 'react-toastify';
+import { useToast } from '@/components/ui/use-toast';
 
 const BookmarkButton = ({ property }) => {
+  const { toast } = useToast();
   const { data: session } = useSession();
   const userId = session?.user?.id;
 
@@ -42,7 +43,10 @@ const BookmarkButton = ({ property }) => {
 
   const handleBookmark = async () => {
     if (!userId) {
-      toast.error('You need to sign in to bookmark a property');
+      toast({
+        title: 'error',
+        description: 'You need to sign in to bookmark a property',
+      });
       return;
     }
     try {
@@ -57,7 +61,10 @@ const BookmarkButton = ({ property }) => {
       });
       if (res.status === 200) {
         const data = await res.json();
-        toast.success(data.message);
+        toast({
+          title: 'Success',
+          description: data.message,
+        });
         setIsBookmarked(data.isBookmarked);
       }
     } catch (error) {
@@ -75,7 +82,7 @@ const BookmarkButton = ({ property }) => {
   ) : (
     <button
       onClick={handleBookmark}
-      className="bg-blue-500 hover:bg-blue-600 text-white font-bold w-full py-2 px-4 rounded-full flex items-center justify-center"
+      className="bg-green-500 hover:bg-green-600 text-white font-bold w-full py-2 px-4 rounded-full flex items-center justify-center"
     >
       <FaBookmark className="mr-2" /> Bookmark Property
     </button>

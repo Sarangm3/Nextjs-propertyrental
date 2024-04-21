@@ -4,7 +4,6 @@ import AuthProvider from '@/components/AuthProvider';
 import { ToastContainer } from 'react-toastify';
 import '@/assets/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
-import 'react-loading-skeleton/dist/skeleton.css';
 import { GlobalProvider } from '@/context/GlobalContext';
 import 'photoswipe/dist/photoswipe.css';
 import { Toaster } from '@/components/ui/toaster';

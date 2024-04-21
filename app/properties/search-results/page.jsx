@@ -36,7 +36,7 @@ const PropertySearchPage = ({ Property }) => {
 
   return (
     <>
-      <section className="bg-blue-700 py-4">
+      <section className="bg-gray-800 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-start">
           <PropertySearchForm />
         </div>
@@ -49,7 +49,7 @@ const PropertySearchPage = ({ Property }) => {
           <div className="container-xl lg:container m-auto px-4 py-6">
             <Link
               href="/properties"
-              className="flex items-center text-blue-500 hover:underline mb-3"
+              className="flex items-center text-gray-500 hover:underline mb-3"
             >
               <FaArrowAltCircleLeft className="mr-2 mb-1" /> Back To Properties
             </Link>

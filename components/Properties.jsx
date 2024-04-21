@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Spinner from '@/components/Spinner';
 import { toast } from 'react-toastify';
 import Pagination from '@/components/Pagination';
+import FeaturedPropertyCardSkeleton from '@/components/skeleton/PropertyCardSkeleton';
 
 const Properties = () => {
   const [properties, setProperties] = useState([]);
@@ -15,6 +16,7 @@ const Properties = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
+        setLoading(true);
         const res = await fetch(
           `/api/properties?page=${page}&pageSize=${pageSize}`
         );
@@ -38,19 +40,28 @@ const Properties = () => {
     setPage(newPage);
   };
 
-  return loading ? (
-    <Spinner loading={loading} />
-  ) : (
+  return (
     <section className="px-4 py-6">
       <div className="container-xl lg:container m-auto px-4 py-6">
-        {properties.length === 0 ? (
-          <p>No properties found</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {properties.map((property) => (
-              <PropertiesCard key={property._id} property={property} />
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-pulse">
+            {[...Array(6)].map((_, index) => (
+              <FeaturedPropertyCardSkeleton key={index} />
             ))}
           </div>
+        ) : (
+          // Render properties or message when not loading
+          <>
+            {properties.length === 0 ? (
+              <p>No properties found</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {properties.map((property) => (
+                  <PropertiesCard key={property._id} property={property} />
+                ))}
+              </div>
+            )}
+          </>
         )}
         <Pagination
           page={page}

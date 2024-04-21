@@ -1,9 +1,9 @@
 'use client';
 import Link from 'next/link';
 import PropertyCard from '@/components/PropertyCard';
-import Spinner from '@/components/Spinner';
 import { fetchProperties } from '@/utils/request';
 import { useEffect, useState } from 'react';
+import PropertyCardSkeleton from '@/components/skeleton/PropertyCardSkeleton';
 
 const HomeProperty = () => {
   const [properties, setProperties] = useState([]);
@@ -35,7 +35,11 @@ const HomeProperty = () => {
             Recent Properties
           </h2>
           {loading ? (
-            <Spinner loading={loading} />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-pulse">
+              <PropertyCardSkeleton />
+              <PropertyCardSkeleton />
+              <PropertyCardSkeleton />
+            </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {properties === 0 ? (
@@ -52,7 +56,7 @@ const HomeProperty = () => {
       <section className="m-auto max-w-lg my-10 px-6">
         <Link
           href="/properties"
-          className="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
+          className="block bg-black text-white dark:bg-gray-100 dark:text-black text-center py-4 px-6 rounded-xl hover:bg-gray-700"
         >
           View All Properties
         </Link>

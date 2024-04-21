@@ -17,7 +17,7 @@ const MobileMenu = ({ session, pathname }) => {
   return (
     <Sheet>
       <SheetTrigger>
-        <div className="md:hidden items-center mr-4 text-gray-400 border p-1.5 border-gray-600 rounded-md">
+        <div className="md:hidden bg-gray-900 items-center mr-4 text-gray-400 border p-1.5 border-gray-600 rounded-md">
           <svg
             className="block h-6 w-6"
             fill="none"
@@ -36,8 +36,12 @@ const MobileMenu = ({ session, pathname }) => {
       </SheetTrigger>
       <SheetContent side="left" className="p-4 w-2/3">
         <SheetClose asChild>
-          <Link href="/" className="flex rounded-full">
-            <Image className="h-10 w-auto" src={logo} priority={true} />
+          <Link href="/" className="flex">
+            <Image
+              className="h-10 w-auto rounded-full bg-black"
+              src={logo}
+              priority={true}
+            />
           </Link>
         </SheetClose>
         <div id="mobile-menu">
@@ -46,24 +50,30 @@ const MobileMenu = ({ session, pathname }) => {
               <Link
                 href="/"
                 className={`${
-                  pathname == '/' ? 'text-gray-200' : ''
-                } flex rounded-md  gap-2 py-1.5 my-2 hover:bg-gray-800 text-base font-medium`}
+                  pathname == '/' ? 'dark:text-gray-200 font-semibold' : ''
+                } flex rounded-md py-1.5 hover:bg-gray-200 dark:hover:bg-gray-800 text-base font-medium`}
               >
-                <div className="flex ml-2 justify-center items-center">
-                  <VscHome size={16} />
+                <div className="flex ml-2 gap-2 justify-center items-center">
+                  <div>
+                    <VscHome size={15} />
+                  </div>
+                  <span>Home</span>
                 </div>
-                <span>Home</span>
               </Link>
             </SheetClose>
             <SheetClose asChild>
               <Link
                 href="/properties"
                 className={`${
-                  pathname == '/properties' ? 'text-gray-200' : ''
-                } flex rounded-md py-1.5 my-2 hover:bg-gray-800 text-base font-medium`}
+                  pathname == '/properties'
+                    ? 'dark:text-gray-200 font-semibold'
+                    : ''
+                } flex rounded-md py-1.5 hover:bg-gray-200 dark:hover:bg-gray-800 text-base font-medium`}
               >
                 <div className="flex ml-2 gap-2 justify-center items-center">
-                  <BsBuilding size={14} />
+                  <div>
+                    <BsBuilding size={13} />
+                  </div>
                   <span> Properties </span>
                 </div>
               </Link>
@@ -73,11 +83,15 @@ const MobileMenu = ({ session, pathname }) => {
                 <Link
                   href="/properties/add"
                   className={`${
-                    pathname == '/properties/add' ? 'text-gray-200' : ''
-                  } flex gap-2 rounded-md py-1.5 my-2 hover:bg-gray-800 text-base font-medium`}
+                    pathname == '/properties/add'
+                      ? 'dark:text-gray-200 font-semibold'
+                      : ''
+                  } flex gap-2 rounded-md py-1.5 hover:bg-gray-200 dark:hover:bg-gray-800 text-base font-medium`}
                 >
                   <div className="flex ml-2 gap-2 justify-center items-center">
-                    <BsBuildingAdd size={14} />
+                    <div>
+                      <BsBuildingAdd size={13} />
+                    </div>
                     <span> Add Property</span>
                   </div>
                 </Link>

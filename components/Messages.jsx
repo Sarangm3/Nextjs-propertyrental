@@ -1,7 +1,7 @@
 'use client';
 import Message from '@/components/Message';
-import Spinner from '@/components/Spinner';
 import { useEffect, useState } from 'react';
+import MessageSkeleton from '@/components/skeleton/MessageSkeleton';
 
 const Messages = () => {
   const [messages, setMessages] = useState([]);
@@ -25,7 +25,11 @@ const Messages = () => {
   }, []);
 
   return loading ? (
-    <Spinner loading={loading} />
+    <>
+      <MessageSkeleton />
+      <MessageSkeleton />
+      <MessageSkeleton />
+    </>
   ) : (
     messages.map((message) => <Message key={message._id} message={message} />)
   );

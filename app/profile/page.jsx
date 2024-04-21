@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import Spinner from '@/components/Spinner';
 import { useToast } from '@/components/ui/use-toast';
 import DeleteButton from '@/components/DeleteButton';
+import ProfilePropertySkeleton from '@/components/skeleton/ProfilePropertySkeleton';
 
 const ProfilePage = () => {
   const { toast } = useToast();
@@ -105,7 +106,10 @@ const ProfilePage = () => {
                 <p>You have no property Listings</p>
               )}
               {loading ? (
-                <Spinner loading={loading} />
+                <div className="animate-pulse">
+                  <ProfilePropertySkeleton />
+                  <ProfilePropertySkeleton />
+                </div>
               ) : (
                 properties.map((property) => (
                   <div key={property._id} className="mb-10">

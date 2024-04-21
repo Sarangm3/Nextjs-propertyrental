@@ -27,11 +27,12 @@ const PropertySearch = () => {
         <label htmlFor="location" className="sr-only">
           Location
         </label>
+
         <input
           type="text"
           id="location"
           placeholder="Enter Keywords or Location"
-          className="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring focus:ring-gray-500"
+          className="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring focus:ring-gray-500"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />

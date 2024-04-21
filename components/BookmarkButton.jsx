@@ -18,6 +18,7 @@ const BookmarkButton = ({ property }) => {
     }
     const fetchBookmarkData = async () => {
       try {
+        setLoading(true);
         const res = await fetch('/api/bookmarks/check', {
           method: 'POST',
           headers: {
@@ -71,7 +72,10 @@ const BookmarkButton = ({ property }) => {
       console.log(error);
     }
   };
-  if (loading) return <p className="text-center">Loading...</p>;
+  if (loading)
+    return (
+      <div className="dark:bg-gray-800 bg-gray-300 w-full py-2 px-4 rounded-full h-10 animate-pulse"></div>
+    );
   return isBookmarked ? (
     <button
       onClick={handleBookmark}

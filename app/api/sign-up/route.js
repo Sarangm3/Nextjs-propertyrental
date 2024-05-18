@@ -3,7 +3,7 @@ import User from '@/models/User';
 import { sendVerifyEmail } from '@/utils/sendVerifyEmail';
 import bcrypt from 'bcryptjs';
 
-// POST /api/properties
+// POST /api/sign-up
 export const POST = async (request) => {
   try {
     await connectDB();
@@ -53,7 +53,7 @@ export const POST = async (request) => {
         email,
         username,
         password: hashedPassword,
-        isVerified: true,
+        isVerified: false,
         bookmarks: [],
         verifyCode,
         verifyCodeExpiry: expiryDate,

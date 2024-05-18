@@ -10,7 +10,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata = {
-  title: 'PropertyPulse | Find The Perfect Rental',
+  title: 'PropertyRento | Find The Perfect Rental',
   description: 'Find your dream rental property',
   keywords: 'rental,find rentals,find property',
 };

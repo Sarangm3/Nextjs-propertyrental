@@ -46,20 +46,17 @@ export default function VerifyAccount() {
 
       router.replace('/sign-in');
     } catch (error) {
-      const axiosError = error;
       toast({
         title: 'Verification Failed',
-        description:
-          axiosError.response?.data.message ??
-          'An error occurred. Please try again.',
+        description: 'An error occurred. Please try again.',
         variant: 'destructive',
       });
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-400">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white dark:bg-gray-600 rounded-lg shadow-md">
+    <div className="flex justify-center items-center min-h-screen bg-gray-800">
+      <div className="w-full max-w-sm p-8 space-y-8 bg-white dark:bg-gray-900 rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
             Verify Your Account

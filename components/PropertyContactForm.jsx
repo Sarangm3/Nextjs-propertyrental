@@ -49,11 +49,11 @@ const PropertyContactForm = ({ property }) => {
       } else {
         toast.error('Failed to send message');
       }
-      setLoading(false);
     } catch (error) {
-      setLoading(false);
       console.error('An error occurred:', error);
       toast.error('Failed to send message');
+    } finally {
+      setLoading(false);
     }
   };
 

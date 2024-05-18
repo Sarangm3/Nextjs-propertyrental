@@ -77,7 +77,7 @@ const ProfilePage = () => {
 
   return (
     <section className="bg-gray-100 dark:bg-gray-900">
-      <div className="container m-auto py-24">
+      <div className="container m-auto py-8 md:py-24">
         <div className="bg-white dark:bg-gray-950 px-6 py-8 mb-4 shadow-md dark:shadow-gray-700 rounded-md border m-4 md:m-0">
           <h1 className="text-3xl font-bold mb-4">Your Profile</h1>
           <div className="flex flex-col md:flex-row">
@@ -95,7 +95,7 @@ const ProfilePage = () => {
               <h2 className="text-2xl mb-4">
                 <span className="font-bold block">Name: </span> {profileName}
               </h2>
-              <h2 className="text-2xl">
+              <h2 className="md:text-2xl text-xs">
                 <span className="font-bold block">Email: </span> {profileEmail}
               </h2>
             </div>
